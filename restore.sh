@@ -32,12 +32,14 @@ read -p "Local or remote restore? [l/r] " restore_type
 # and start the docker container
 if [[ "$restore_type" == "l" ]]; then
   tar -xvf "$backup_dir/$file" -C "$app_data_dir"
-  docker start "$container_name"
+  cd "$app_data_dir/$container_name"
+  docker-compose up -d 
 # If the restore is remote, use rclone to copy the file
 # to the app data directory and untar it there, then start the
 # docker container
 elif [[ "$restore_type" == "r" ]]; then
   rclone copy idrive:backups/"$file" "$backup_dir"
   tar -xvf "$backup_dir/$file" -C "$app_data_dir"
-  docker start "$container_name"
+  cd "$app_data_dir/$container_name"
+  docker-compose up -d
 fi

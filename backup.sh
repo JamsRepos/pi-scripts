@@ -33,9 +33,18 @@ for folder in "$appdata"/*; do
     echo "Starting to archive $(basename "$folder")"
     tar -czf "$zip_file" -C "$appdata" "$(basename "$folder")"
     echo "Sucessfully archived $(basename "$folder")"
-    echo "Starting upload of $zip_file to the mount"
-    rclone copy "$zip_file" "$mount"
-    echo "Uploaded $zip_file to the mount"
+    # Check the size of the file on the remote
+    remote_size=$(rclone size --json "$mount/$(basename "$zip_file")" | jq .bytes)
+    # Check the size of the local file
+    local_size=$(stat -c%s "$zip_file")
+    # If the sizes are different, upload the file
+    if [ "$remote_size" -ne "$local_size" ]; then
+      echo "Starting upload of $zip_file to the mount"
+      rclone copy "$zip_file" "$mount"
+      echo "Uploaded $zip_file to the mount"
+    else
+      echo "There is no changes in file size for $zip_file, not uploading"
+    fi
   fi
 done
 

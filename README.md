@@ -4,7 +4,7 @@
 This script is designed to backup folders within a specified `appdata` directory to a specified `backups` directory and then upload them to a mount using rclone. It will also power down and start up all running docker containers, except for those specified in the `exclude_list`.
 
 ### Requirements
-- The `tar` utility must be installed on the system.
+- The `jq` and `tar` utilities must be installed on the system.
 - `rclone` must be installed and configured with a remote to which the backups should be uploaded.
 
 
@@ -49,8 +49,8 @@ You may also customize the behavior of the script by modifying the commands with
 ## backup.sh
 - no known improvements needed
 - potential webhook
-- comparing the zip size between the local and server one to check for changes. If no changes, don't upload
+- comparing the zip size between the local and server one to check for changes. If no changes, don't upload (DONE)
 
 ## restore.sh
 - docker-compose up -d (DONE)
-- restore all option
+- restore all option (DONE)

@@ -33,7 +33,7 @@ This script is designed to restore a backed up docker container from a specified
 - `rclone` must be installed and configured with a remote from which the backup should be restored.
 
 ### Usage
-To use the script, make sure it is executable with `chmod +x restore.sh`, then run it with `./restore.sh`. The script will display a menu of the available backups on the mount and prompt the user to select one to restore. The user will then be prompted to choose a local or remote restore.
+To use the script, make sure it is executable with `chmod +x restore.sh`, then run it with `./restore.sh`. The script will display a menu of the available backups on the mount and prompt the user to select one to restore or to restore all containers. If the user chooses to restore a specific container, they will then be prompted to choose a local or remote restore.
 
 ### Customization
 There are several variables at the top of the script that can be customized to fit your specific setup:

@@ -5,6 +5,4 @@
  - potential webhook
  
 ## restore.sh
- - a lot
- - delete container (if exists)
- - docker-compose up -d
+ - docker-compose up -d (DONE)

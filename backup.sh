@@ -7,9 +7,7 @@ mount="idrive:/backups"
 exclude_list=("adguard" "uptime-kuma")
 
 # Create the zip destination folder if it doesn't already exist
-if [ ! -d "$backups" ]; then
-  mkdir $backups
-fi
+[ -d "$backups" ] || mkdir "$backups"
 
 # Get a list of all running docker containers
 running_containers=$(docker ps -q)
@@ -29,7 +27,7 @@ fi
 echo "Zipping all of the folders within the appdata folder, except those in the exclude list..."
 
 # Zip all of the folders within the appdata folder, except those in the exclude list
-for folder in $appdata/*; do
+for folder in "$appdata"/*; do
   if [ -d "$folder" ] && [[ ! " ${exclude_list[@]} " =~ " $(basename "$folder") " ]]; then
     zip_file="$backups/$(basename "$folder").tar.gz"
     echo "Starting to archive $(basename "$folder")"
